@@ -23,11 +23,14 @@ void i32_vector_add(struct Int32Vector *vector, int32_t value) {
 
     ++vector->length;
 
-    vector->items = realloc(
+    int32_t *new_alloc = realloc(
         vector->items, 
         sizeof(int32_t) * vector->length);
 
-    vector->items[vector->length - 1] = value;
+    if (new_alloc) {
+        vector->items = new_alloc;
+        vector->items[vector->length - 1] = value;
+    }
 }
 
 int main(int argc, char *argv[]) {
